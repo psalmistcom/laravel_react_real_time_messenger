@@ -16,8 +16,8 @@ class Group extends Model
         'name',
         'description',
         'owner_id',
-        'lasy_message_id',
-        'user_id',
+        'last_message_id',
+        // 'user_id',
     ];
 
     public function users(): BelongsToMany
