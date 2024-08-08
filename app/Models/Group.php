@@ -35,7 +35,7 @@ class Group extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getGroupsForUser(User $user)
+    public static function getGroupsForUser(User $user)
     {
         $query = self::select(['groups.*', 'messages.message as last_message', 'messages.created_at as last_message_date'])
             ->join('group_users', 'group_users.group_id', '=', 'groups.id')
@@ -48,7 +48,7 @@ class Group extends Model
         return $query->get();
     }
 
-    public function toConversationArray(): array
+    public function toConversationArray()
     {
         return [
             'id' => $this->id,
