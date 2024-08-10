@@ -1,6 +1,6 @@
+import ConversationItem from "@/Components/App/ConversationItem";
 import TextInput from "@/Components/TextInput";
-import ConversationItem from "@/Components/ConversationItem";
-// import { PencilSquareIcon } from "@heroicons/react";
+import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import { usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -15,8 +15,8 @@ const ChatLayout = ({ children }) => {
 
     const isUserOnline = (userId) => onlineUsers[userId];
 
-    console.log("conversations", conversations);
-    console.log("selectedConversation", selectedConversation);
+    // console.log("conversations", conversations);
+    // console.log("selectedConversation", selectedConversation);
 
     const onSearch = (ev) => {
         const search = ev.target.value.toLowerCase();
@@ -33,7 +33,7 @@ const ChatLayout = ({ children }) => {
                     return a.blocked_at > b.blocked_at ? 1 : -1;
                 } else if (a.blocked_at) {
                     return 1;
-                } else {
+                } else if (b.blocked_at) {
                     return -1;
                 }
                 if (a.last_message_date && b.last_message_date) {
@@ -58,11 +58,11 @@ const ChatLayout = ({ children }) => {
     useEffect(() => {
         Echo.join("online")
             .here((users) => {
-                const onlineUserObj = Object.fromEntries(
+                const onlineUsersObj = Object.fromEntries(
                     users.map((user) => [user.id, user])
                 );
                 setOnlineUsers((prevOnlineUsers) => {
-                    return { ...prevOnlineUsers, ...onlineUserObj };
+                    return { ...prevOnlineUsers, ...onlineUsersObj };
                 });
             })
             .joining((user) => {
@@ -101,8 +101,7 @@ const ChatLayout = ({ children }) => {
                             data-tip="create new Group"
                         >
                             <button className="text-gray-400 hover:text-gray-200">
-                                pencilsquareicon
-                                {/* <PencilSquareIcon className="w-4 h-4 inline-block ml-2" /> */}
+                                <PencilSquareIcon className="w-4 h-4 inline-block ml-2" />
                             </button>
                         </div>
                     </div>
@@ -113,9 +112,10 @@ const ChatLayout = ({ children }) => {
                             className="w-full"
                         />
                     </div>
+
                     <div className="flex-1 overflow-auto">
                         {sortedConversations &&
-                            sortedConversations.map((conversation) => {
+                            sortedConversations.map((conversation) => (
                                 <ConversationItem
                                     key={`${
                                         conversation.is_group
@@ -125,8 +125,9 @@ const ChatLayout = ({ children }) => {
                                     conversation={conversation}
                                     online={!!isUserOnline(conversation.id)}
                                     selectedConversation={selectedConversation}
-                                />;
-                            })}
+                                />
+                            ))}
+                        {/* {JSON.stringify(sortedConversations, undefined)} */}
                     </div>
                 </div>
                 <div className="flex-1 flex flex-col overflow-hidden">
