@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#app {
+    height: 100vh;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4e8ff780;
+    border-radius: 10px;
+}
+
+.conversation-item .avatar.online::before,
+.conversation-item .avatar.offline::before {
+    width: 8px;
+    height: 8px;
+    top: -1px;
+    right: -1px;
+    outline-width: 1px;
+    outline-color: #fff;
+}

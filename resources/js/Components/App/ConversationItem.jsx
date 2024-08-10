@@ -66,7 +66,7 @@ const ConversationItem = ({
                         </span>
                     )}
                 </div>
-                {conversation.last_message_date && (
+                {conversation.last_message && (
                     <p className="text-xs text-nowrap overflow-hidden text-ellipsis">
                         {conversation.last_message}
                     </p>
