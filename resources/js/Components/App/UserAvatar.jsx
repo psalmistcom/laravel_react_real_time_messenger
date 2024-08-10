@@ -1,7 +1,7 @@
 const UserAvatar = ({ user, online = null, profile = false }) => {
     let onlineClass =
         online === true ? "online" : online === false ? "offline" : "";
-    const sizeClass = profile ? "w-40" : "4-8";
+    const sizeClass = profile ? "w-40" : "h-8";
     return (
         <>
             {user.avatar_url && (
