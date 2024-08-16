@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SocketMessage;
 use App\Http\Requests\StoreMessageRequest;
 use App\Http\Resources\MessageResource;
+use App\Models\Conversation;
 use App\Models\Group;
 use App\Models\Message;
 use App\Models\MessageAttachement;
@@ -87,12 +89,34 @@ class MessageController extends Controller
                     'path' => $file->store($directory, 'public'),
                 ];
                 $attachment = MessageAttachement::create($model);
+                $attachments[] = $attachment;
             }
             $message->attachments = $attachments;
         }
+
+        if ($receiverId) {
+            Conversation::updateConversationWithMessage($receiverId, auth()->id(), $message);
+        }
+        if ($groupId) {
+            Group::updateGroupWithMessage($groupId, $message);
+        }
+
+        SocketMessage::dispatch($message);
+
+        return new MessageResource($message);
     }
 
     public function destroy(Message $message)
     {
+        if ($message->sender_id !== auth()->id()) {
+            return response()->json(
+                ['message' => 'Forbidden'],
+                403
+            );
+        }
+
+        $message->delete();
+
+        return response('', 200);
     }
 }
