@@ -1,4 +1,5 @@
 import ConversationHeader from "@/Components/App/ConversationHeader";
+import MessageInput from "@/Components/App/MessageInput";
 import MessageItem from "@/Components/App/MessageItem";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import ChatLayout from "@/Layouts/ChatLayout";
@@ -9,6 +10,14 @@ import { useEffect, useState, useRef } from "react";
 function Home({ selectedConversation = null, messages = null }) {
     const [localMessages, setLocalMessages] = useState([]);
     const messagesCtrlRef = useRef(null);
+
+    useEffect(() => {
+        setTimeout(() => {
+            messagesCtrlRef.current.scrollTop =
+                messagesCtrlRef.current.scrollHeight;
+        }, 10);
+    }, [selectedConversation]);
+
     useEffect(() => {
         setLocalMessages(messages ? messages.data.reverse() : []);
     }, [messages]);
@@ -55,7 +64,7 @@ function Home({ selectedConversation = null, messages = null }) {
                             </div>
                         )}
                     </div>
-                    {/* <MessageInput conversation={selectedConversation} /> */}
+                    <MessageInput conversation={selectedConversation} />
                 </>
             )}
         </>
