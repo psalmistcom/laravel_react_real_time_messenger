@@ -52,7 +52,7 @@ class MessageController extends Controller
             $messages = Message::where('created_at', '<', $message->created_at)
                 ->where(function ($query) use ($message) {
                     $query->where('sender_id', $message->sender_id)
-                        ->where('reveiver_id', $message->receiver_id)
+                        ->where('receiver_id', $message->receiver_id)
                         ->orWhere('sender_id', $message->receiver_id)
                         ->where('receiver_id', $message->sender_id);
                 })
