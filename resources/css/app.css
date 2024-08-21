@@ -6,6 +6,14 @@
     height: 100vh;
 }
 
+.EmojiPickerReact.epr-dark-theme {
+    background-color: theme('colors.slate.900');
+}
+
+.EmojiPickerReact.epr-dark-theme .epr-emoji-category-label {
+    background-color: theme('colors.slate.950');
+}
+
 ::-webkit-scrollbar {
     width: 5px;
 }
