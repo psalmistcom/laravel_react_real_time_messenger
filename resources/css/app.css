@@ -105,4 +105,18 @@
     padding: 2px 4px;
     border-radius: 6px;
     font-size: 90%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.chat-message-content pre {
+    padding: 1rem;
+    white-space: no-wrap;
+    overflow-x: auto;
+    font-style: italic;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+}
+
+.chat-message-content pre code {
+    background-color: transparent;
 }
