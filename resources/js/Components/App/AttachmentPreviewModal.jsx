@@ -102,6 +102,32 @@ export default function AttachmentPreviewModal({
                                             <ChevronRightIcon className="w-12" />
                                         </div>
                                     )}
+                                    {attachment && (
+                                        <div className="flex items-center justify-center w-full h-full p-3">
+                                            {isImage(attachment) && (
+                                                <img src={attachment.url} className="max-w-full max-h-full" alt="Image"/>
+                                            )}
+                                            {isVideo(attachment) && (
+                                                <div className="flex items-center">
+                                                    <video src={attachment.url} controls autoPlay></video>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                    {isAudio(attachment) &&(
+                                        <div className="relative flex justify-center items-center">
+                                            <audio src={attachment.url} controls autoPlay></audio>
+                                        </div>
+                                    )}
+                                    {isPDF(attachment) && (
+                                        <iframe src={attachment.url} className="w-full h-full"></iframe>
+                                    )}
+                                    {!isPreviewable(attachment) && (
+                                        <div className="p-32 flex flex-col justify-center items-center text-gray-100">
+                                            <PaperClipIcon className="w-10 h-10 mb-3" />
+                                            <small>{attachment.name} </small>
+                                        </div>
+                                    )}
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>

@@ -12,6 +12,8 @@ import axios from "axios";
 import EmojiPicker from "emoji-picker-react";
 import { Popover, Transition } from "@headlessui/react";
 import CustomAudioPlayer from "./CustomAudioPlayer";
+import {isImage, isAudio} from "@/helpers.jsx";
+import AttachmentPreview from "@/Components/App/AttachmentPreview.jsx";
 
 const MessageInput = ({ conversation = null }) => {
     const [newMessage, setNewMessage] = useState("");
@@ -38,7 +40,7 @@ const MessageInput = ({ conversation = null }) => {
         if (messageSending) {
             return;
         }
-        if (newMessage.trim() === "") {
+        if (newMessage.trim() === "" && chosenFiles.length === 0) {
             setInputErrorMessage(
                 "Please provide a message or upload attachments."
             );
@@ -170,13 +172,13 @@ const MessageInput = ({ conversation = null }) => {
                                     className="w-16 h-16 object-cover"
                                 />
                             )}
-                            {IsAudio(file.file) && (
+                            {isAudio(file.file) && (
                                 <CustomAudioPlayer
                                     file={file}
                                     showVolume={false}
                                 />
                             )}
-                            {!IsAudio(file.file) && !isImage(file.file) && (
+                            {!isAudio(file.file) && !isImage(file.file) && (
                                 <AttachmentPreview file={file} />
                             )}
                             <button
